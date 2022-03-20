@@ -1,0 +1,7 @@
+name = "RootedTrees"
+uuid = "cea875af-689a-4f27-bb95-2a37016d43a5"
+authors = ["eascarrunz <eascarrunz.dev@mailfence.com>"]
+version = "0.1.0"
+
+[deps]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
