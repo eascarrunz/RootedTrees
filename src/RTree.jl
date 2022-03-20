@@ -48,3 +48,17 @@ function createtree(::Type{ND}, n) where ND
     return RTree(nodes)
 end
 createtree(n::Int) = createtree(Dict, n)
+
+
+"""
+    addnode!(tree, n=1)
+
+Add `n` nodes to a `tree`. Return the ID of the first new node.
+"""
+function addnode!(tree::RTree{D}, n=1) where D
+    i = nnode(tree)
+    push!(tree.nodes, (RNode{D}(j) for j in (i+1):(i+n))...)
+
+    return i+1
+end
+
