@@ -3,11 +3,12 @@ module RootedTrees
 const IDInt = UInt16    # Maximum of 65535
 
 #======================#
-         CORE
+#         CORE
 #======================#
 
 abstract type AbstractTree end
 abstract type AbstractRTree <: AbstractTree end
+abstract type AbstractNode end
 
 include("RNode.jl")
 export
@@ -29,8 +30,10 @@ export link!, cut!, swap!
 
 #------end of CORE------#
 
+include("tree_builders.jl")
+export symmetric_tree
+
 include("newick.jl")
 export newick, print_newick
-
 
 end # module
