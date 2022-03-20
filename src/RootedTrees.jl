@@ -2,12 +2,12 @@ module RootedTrees
 
 const IDInt = UInt16    # Maximum of 65535
 
+#======================#
+         CORE
+#======================#
+
 abstract type AbstractTree end
 abstract type AbstractRTree <: AbstractTree end
-
-#======================#
-          CORE
-#======================#
 
 include("RNode.jl")
 export
