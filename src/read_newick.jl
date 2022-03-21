@@ -32,10 +32,10 @@ function _readuntilany(io, delimset)
     #TODO: Re-implement this method using `skipchars`
 
     s = ""
-    c = peek(io, Char)
-    while c ∉ delimset
+    chr = peek(io, Char)
+    while chr ∉ delimset
         s *= read(io, Char)
-        c = peek(io, Char)
+        chr = peek(io, Char)
     end
 
     return s
@@ -49,7 +49,7 @@ it isn't.
 function _readconfirm(io, query)
     chr = read(io, Char)
     if chr != query
-        @error "expected \'$(query)\' but got \'$(chr)\'"
+        throw(ErrorException("expected \'$(query)\' but got \'$(chr)\'"))
     end
 
     return nothing
@@ -57,10 +57,11 @@ end
 
 
 function _parsetext(io)
-    s = peek(io, Char)
-    if s == '\"'
+    _whiteslurp(io)
+    chr = peek(io, Char)
+    if chr == '\"'
         s = readuntil(io, '\"')
-    elseif s == '\''
+    elseif chr == '\''
         s = readuntil(io, '\'')
     else
         s = _readuntilany(io, ALL_DELIMS)
@@ -82,10 +83,15 @@ function _parseouter(io::IO, tree)
     #? All this could just be included in `_parsechild`
 
     labelstr = _parsetext(io)
-    chr = peek(io)
+    _whiteslurp(io)
+    chr = peek(io, Char)
     #TODO: Check for a comment here
-    brlen = chr == ':' ? _parsebranch(io) : nothing
-    
+    if chr == ':'
+        brlen =  _parsebranch(io)
+    else
+        brlen = nothing
+    end
+
     c = addnode!(tree, 1)
     setlabel!(c, labelstr)
     brlength!(c, brlen)
@@ -108,7 +114,6 @@ end
 function _parseinner(io::IO, tree)
     _readconfirm(io, '(')
     _whiteslurp(io)
-
     
     p = addnode!(tree, 1)
     
@@ -130,7 +135,7 @@ function _parseinner(io::IO, tree)
     _readconfirm(io, ')')
     
     labelstr = _parsetext(io)
-    chr = peek(io)
+    chr = peek(io, Char)
     brlen = chr == ':' ? _parsebranch(io) : nothing
     
     setlabel!(p, labelstr)
