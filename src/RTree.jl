@@ -59,6 +59,6 @@ function addnode!(tree::RTree{D}, n=1) where D
     i = nnode(tree)
     push!(tree.nodes, (RNode{D}(j) for j in (i+1):(i+n))...)
 
-    return i+1
+    return getnode(tree, i+1)
 end
 
