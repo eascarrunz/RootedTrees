@@ -10,6 +10,15 @@ mutable struct RNode{ND} <: AbstractNode
         new{T}(id, label, brlength, nothing, RNode{T}[], nothing)
 end
 
+
+"""
+    getid(p)
+
+Return the ID of a node `p`.
+"""
+getid(p::RNode) = p.id
+
+
 brlength(c::RNode) = c.brlength
 function brlength!(c::RNode, l)
     c.brlength = l
