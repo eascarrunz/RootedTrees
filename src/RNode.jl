@@ -23,7 +23,6 @@ brlength(c::RNode) = c.brlength
 function brlength!(c::RNode, l)
     c.brlength = l
 end
-getlabel(c::RNode) = c.label
 
 
 """
