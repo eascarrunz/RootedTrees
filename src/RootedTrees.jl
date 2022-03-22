@@ -12,6 +12,7 @@ abstract type AbstractNode end
 
 include("RNode.jl")
 export
+    getid,
     brlength, brlength!,
     getlabel, setlabel!,
     parent, children,
