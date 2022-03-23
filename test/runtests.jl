@@ -48,11 +48,18 @@ end
         "(A:0.1,B:0.2,(C:0.3,D:0.4)E:0.5)F;",    ## distances and all names
         "((B:0.2,(C:0.3,D:0.4)E:0.5)F:0.1)A;"   ## a tree rooted on a leaf node (rare)
         ]
+        
+        for nwkstr in test_strings
+            tree = parsenewick(nwkstr)
+            @test newick(tree) == filter(! isspace, nwkstr)
+        end
+        
+        test_string =
+        "((\"B\":0.2,(\"C\":0.3,\"D\":0.4)\"E\":0.5)\"F\":0.1)A;"   ## with quote marks
+        
+        tree = parsenewick(test_string)
+        @test newick(tree) == "((B:0.2,(C:0.3,D:0.4)E:0.5)F:0.1)A;"
 
-    for nwkstr in test_strings
-        tree = parsenewick(nwkstr)
-        @test newick(tree) == filter(! isspace, nwkstr)
-    end
 end
 
 

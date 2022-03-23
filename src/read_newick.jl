@@ -60,8 +60,10 @@ function _parsetext(io)
     _whiteslurp(io)
     chr = peek(io, Char)
     if chr == '\"'
-        s = readuntil(io, '\"')
+        read(io, Char)            # Read opening quote mark
+        s = readuntil(io, '\"')   # Read string
     elseif chr == '\''
+        read(io, Char)
         s = readuntil(io, '\'')
     else
         s = _readuntilany(io, ALL_DELIMS)
