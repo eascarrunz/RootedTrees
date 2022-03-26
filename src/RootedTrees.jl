@@ -1,7 +1,5 @@
 module RootedTrees
 
-using Requires
-
 const IDInt = UInt16    # Maximum of 65535
 
 #======================#
@@ -42,13 +40,9 @@ export parsenewick
 include("write_newick.jl")
 export newick, print_newick
 
-function __init__()
-    @require Makie="ee78f7c6-11fb-53f2-987a-cfe4a2b5a57a" begin
-        using Makie
+include("preplot.jl")
 
-        include("plot.jl")
-        export plot, plot!
-    end
-end
+include("plot_recipe.jl")
+export plot, plot!
 
 end # module
