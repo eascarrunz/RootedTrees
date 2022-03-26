@@ -1,6 +1,7 @@
 # RootedTrees
 
 [![Run tests](https://github.com/eascarrunz/RootedTrees/actions/workflows/test.yml/badge.svg)](https://github.com/eascarrunz/RootedTrees/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/eascarrunz/RootedTrees/branch/master/graph/badge.svg?token=YzxqojSzCf)](https://codecov.io/gh/eascarrunz/RootedTrees)
 
 This is a package I use for experimenting with algorithms and data structures of rooted 
 trees. Still, I do try to keep it clean and simple.
