@@ -15,7 +15,13 @@ Get X coords of all the nodes, and Y coords of the outer nodes.
 function _tree_coords_pass1(p, A, x, y, usebrl)
     id = getid(p)
 
-    x += usebrl ? brlength(p) : 1.0
+    if usebrl
+        brlen = brlength(p)
+        brlen = isnothing(brlen) ? 1.0 : brlen
+        x += brlen
+    else
+        x += 1.0
+    end
     A.xnode[id] = x
 
     if isouter(p)
