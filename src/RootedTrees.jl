@@ -12,6 +12,7 @@ abstract type AbstractNode end
 
 include("RNode.jl")
 export
+    RNode,
     getid,
     brlength, brlength!,
     getlabel, setlabel!,
@@ -21,6 +22,7 @@ export
 
 include("RTree.jl")
 export
+    RTree,
     getroot,
     getnode, getnodes,
     nnode, ninner, nouter,
