@@ -9,6 +9,7 @@ const IDInt = UInt16    # Maximum of 65535
 abstract type AbstractTree end
 abstract type AbstractRTree <: AbstractTree end
 abstract type AbstractNode end
+abstract type AbstractRNode <: AbstractNode end
 
 include("RNode.jl")
 export
@@ -35,6 +36,12 @@ export link!, cut!, swap!
 
 include("tree_builders.jl")
 export symmetric_tree
+
+include("ancestors.jl")
+export
+    path_to_root,
+    findmrca,
+    mrca_matrix
 
 include("read_newick.jl")
 export parsenewick
