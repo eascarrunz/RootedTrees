@@ -16,7 +16,7 @@ export
     brlength, brlength!,
     getlabel, setlabel!,
     parent, children,
-    indegee, outdegree,
+    indegree, outdegree,
     isouter, isinner
 
 include("RTree.jl")
