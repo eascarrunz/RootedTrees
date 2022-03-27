@@ -48,7 +48,7 @@ end
 
 Return the parent of node `c`.
 """
-parent(c::RNode) = c.parent
+Base.parent(c::RNode) = c.parent    #! Hacky importing from Base
 
 
 """
