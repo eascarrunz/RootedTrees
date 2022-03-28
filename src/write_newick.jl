@@ -30,7 +30,7 @@ end
 """
     newick(node; brlengths=true, fmt=nothing)
 
-Return a Newick string representation of the clade subtended by a `node`. Will not include branch lengths if `brlengths` is set to `false`.
+Return a Newick string representation of the clade under a `node`. Will not include branch lengths if `brlengths` is set to `false`.
 """
 newick(p::RNode; brlengths=true) = create_newick("", p; brlengths=brlengths) * ";"
 
