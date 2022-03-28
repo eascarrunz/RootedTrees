@@ -11,6 +11,11 @@ abstract type AbstractRTree <: AbstractTree end
 abstract type AbstractNode end
 abstract type AbstractRNode <: AbstractNode end
 
+export AbstractTree
+export AbstractRTree
+export AbstractNode
+export AbstractRNode
+
 include("RNode.jl")
 export
     RNode,
