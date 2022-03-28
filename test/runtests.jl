@@ -49,17 +49,62 @@ end
         "((B:0.2,(C:0.3,D:0.4)E:0.5)F:0.1)A;"   ## a tree rooted on a leaf node (rare)
         ]
         
-        for nwkstr in test_strings
-            tree = parsenewick(nwkstr)
-            @test newick(tree) == filter(! isspace, nwkstr)
-        end
-        
-        test_string =
-        "((\"B\":0.2,(\"C\":0.3,\"D\":0.4)\"E\":0.5)\"F\":0.1)A;"   ## with quote marks
-        
-        tree = parsenewick(test_string)
-        @test newick(tree) == "((B:0.2,(C:0.3,D:0.4)E:0.5)F:0.1)A;"
+    for nwkstr in test_strings
+        tree = parsenewick(nwkstr)
+        @test newick(tree) == filter(! isspace, nwkstr)
+    end
+    
+    test_string =
+    "((\"B\":0.2,(\"C\":0.3,\"D\":0.4)\"E\":0.5)\"F\":0.1)A;"   ## with quote marks
+    
+    tree = parsenewick(test_string)
+    @test newick(tree) == "((B:0.2,(C:0.3,D:0.4)E:0.5)F:0.1)A;"
 
+end
+
+@testset "Traversals" begin
+    tree = createtree(6)
+
+    setlabel!.(getnodes(tree), ("p", "x", "c1", "c2", "c3", "s"))
+    
+    p, x, c1, c2, c3, s = getnodes(tree)
+    
+    tree.root = p
+    
+    link!(p => x)
+    link!(p => s)
+    link!(x => c1)
+    link!(x => c2)
+    link!(x => c3)
+    
+    @test preorder(tree) == preorder(p) == [p, x, c1, c2, c3, s]
+    @test preorder(x) == [x, c1, c2, c3]
+    @test postorder(tree) == postorder(p) == [c1, c2, c3, x, s, p]
+    @test postorder(x) == [c1, c2, c3, x]
+end
+
+@testset "Reroot" begin
+    tree = createtree(6)
+
+    setlabel!.(getnodes(tree), ("p", "x", "c1", "c2", "c3", "s"))
+
+    p, x, c1, c2, c3, s = getnodes(tree)
+
+    link!(p => x)
+    link!(p => s)
+    link!(x => c1)
+    link!(x => c2)
+    link!(x => c3)
+
+    tree.root = p
+
+    reroot!(tree, x)
+    @test isnothing(parent(x))
+    @test parent(p) ≡ x
+    @test p ∈ children(x)
+    @test c1 ∈ children(x)
+    @test c2 ∈ children(x)
+    @test s ∈ children(p)
 end
 
 

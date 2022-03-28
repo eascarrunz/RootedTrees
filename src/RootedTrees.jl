@@ -42,6 +42,14 @@ export link!, cut!, swap!
 include("tree_builders.jl")
 export symmetric_tree
 
+include("traverse.jl")
+export
+    pretraverse, posttraverse,
+    preorder, postorder
+
+include("reroot.jl")
+export reroot!
+
 include("ancestors.jl")
 export
     path_to_root,
