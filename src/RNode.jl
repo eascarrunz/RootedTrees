@@ -1,4 +1,4 @@
-mutable struct RNode{ND} <: AbstractNode
+mutable struct RNode{ND} <: AbstractRNode
     id::IDInt
     label::String
     brlength::Union{Nothing,Float64}
