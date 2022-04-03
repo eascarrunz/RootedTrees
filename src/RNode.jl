@@ -1,13 +1,13 @@
 mutable struct RNode{ND} <: AbstractRNode
     id::IDInt
     label::String
-    brlength::Union{Nothing,Float64}
     parent::Union{Nothing,RNode{ND}}
     children::Vector{RNode{ND}}
     data::Union{Nothing,ND}
+    branch::Branch
 
-    RNode{T}(id = 0, label="", brlength=nothing) where T =
-        new{T}(id, label, brlength, nothing, RNode{T}[], nothing)
+    RNode{T}(id = 0, label="") where T =
+        new{T}(id, label, nothing, RNode{T}[], nothing)
 end
 
 
@@ -19,10 +19,25 @@ Return the ID of a node `p`.
 getid(p::RNode) = p.id
 
 
-brlength(c::RNode) = c.brlength
-function brlength!(c::RNode, l)
-    c.brlength = l
-end
+"""
+    brlength(c::RNode)
+    brlength(br::Branch)
+
+Return the length of the branch of node `c`, or of a `br`anch object.
+
+Branch lengths can be a value of type `Float64` or `nothing`.
+"""
+brlength(c::RNode) = brlength(c.branch)
+
+"""
+    brlength!(c::RNode, len)
+    brlength!(br::Branch, len)
+
+Set the `len`gth of the branch of node `c`, or of a `br`anch object.
+
+Branch lengths can be a value of type `Float64` or `nothing`.
+"""
+brlength!(c::RNode, l) = brlength!(c.branch, l)
 
 
 """

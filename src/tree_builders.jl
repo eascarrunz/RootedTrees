@@ -36,9 +36,9 @@ julia>symmetric_tree(Any, 9, k = 3)
 RTree{Any}: 13 nodes
 ```
 """
-function symmetric_tree(::Type{D}; depth, k=2) where D
+function symmetric_tree(::Type{ND}, ::Type{BD}; depth, k=2) where {ND,BD}
     N = sum(k .^ (depth:-1:1)) + 1
-    tree = createtree(D, N)
+    tree = createtree(ND, BD, N)
     tree.root = tree.nodes[1]
     setlabel!(tree.root, "1")
     kfurcate_symmetric!(getroot(tree), k, 1, depth, tree, 0)
@@ -46,12 +46,12 @@ function symmetric_tree(::Type{D}; depth, k=2) where D
     return tree
 end
 
-function symmetric_tree(::Type{D}, n; k = 2) where D
+function symmetric_tree(::Type{ND}, ::Type{BD}, n; k = 2) where {ND,BD}
     d = log(k, n)    ## Number of times to fork terminal nodes
     isinteger(d) ||
         @error "`n` is not a natural number power of `k`"
 
-    return symmetric_tree(D; depth = Int(d), k = k)
+    return symmetric_tree(ND, BD; depth = Int(d), k = k)
 end
 
-symmetric_tree(n, k=2) = symmetric_tree(Any, n, k = k)
+symmetric_tree(n, k=2) = symmetric_tree(Dict, Dict, n, k = k)

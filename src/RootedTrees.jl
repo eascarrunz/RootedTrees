@@ -16,6 +16,8 @@ export AbstractRTree
 export AbstractNode
 export AbstractRNode
 
+include("Branch.jl")
+
 include("RNode.jl")
 export
     RNode,
