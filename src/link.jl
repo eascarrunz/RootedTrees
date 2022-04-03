@@ -5,14 +5,8 @@ Connect a `Pair` of nodes: From `p`arent to `c`hild with a branch of length `ℓ
 """
 function link!(pc::Pair{RNode{T},RNode{T}}, l=brlength(pc[2])) where T
     p, c = pc
-    freespace = length(p.children) - outdegree(p)
     
-    if freespace > 0
-        p.outdegree += 1
-        p.children[outdegree(p)] = c
-    else
-        push!(p.children, c)
-    end
+    push!(p.children, c)
     c.parent = p
     brlength!(c, l)
     
