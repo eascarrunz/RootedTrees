@@ -172,26 +172,27 @@ end
         @test all(getid.(E) .== [11, 10, 2, 1])
     end
 
-    # @testset "findmrca" begin
-    #     #TODO: Add test for auto method selection
-    #     @test 1 == findmrca(tree16, [5, 31], method = 1)
-    #     @test 1 == findmrca(tree16, [5, 31], method = 2)
-    #     @test 2 == findmrca(tree16, [5, 16], method = 1)
-    #     @test 2 == findmrca(tree16, [5, 16], method = 2)
-    #     @test 25 == findmrca(tree16, [27, 31], method = 1)
-    #     @test 25 == findmrca(tree16, [27, 31], method = 2)
-    #     @test 10 == findmrca(tree16, [12, 16], method = 1)
-    #     @test 10 == findmrca(tree16, [12, 16], method = 2)
-    #     @test 19 == findmrca(tree16, [20, 21], method = 1)
-    #     @test 19 == findmrca(tree16, [20, 21], method = 2)
+    @testset "findmrca" begin
+        #TODO: Add test for auto method selection
+        #TODO: Fix method 2!
+        @test 1 == findmrca(tree16, [5, 31], method = 1)
+        @test 1 == findmrca(tree16, [5, 31], method = 2)
+        @test 2 == findmrca(tree16, [5, 16], method = 1)
+        @test_broken 2 == findmrca(tree16, [5, 16], method = 2)
+        @test 25 == findmrca(tree16, [27, 31], method = 1)
+        @test_broken 25 == findmrca(tree16, [27, 31], method = 2)
+        @test 10 == findmrca(tree16, [12, 16], method = 1)
+        @test_broken 10 == findmrca(tree16, [12, 16], method = 2)
+        @test 19 == findmrca(tree16, [20, 21], method = 1)
+        @test_broken 19 == findmrca(tree16, [20, 21], method = 2)
 
-    #     # More than 2 targets
-    #     @test 17 == findmrca(tree16, [20, 21, 31], method = 1)
-    #     @test 17 == findmrca(tree16, [20, 21, 31], method = 2)
+        # More than 2 targets
+        @test 17 == findmrca(tree16, [20, 21, 31], method = 1)
+        @test_broken 17 == findmrca(tree16, [20, 21, 31], method = 2)
         
-    #     # Inner nodes
-    #     @test_skip 17 == findmrca(tree16, [19, 25, 29], method = 1)
-    #     @test_skip 17 == findmrca(tree16, [19, 25, 29], method = 2)
+        # Inner nodes
+        @test 17 == findmrca(tree16, [19, 25, 29], method = 1)
+        @test_broken 17 == findmrca(tree16, [19, 25, 29], method = 2)
 
     #     #=
     #     Need to decide on the behaviour of findmrca when one of the nodes is an ancestor
@@ -201,7 +202,7 @@ end
     #     # Any node with the root
     #     @test_skip 0 == findmrca(tree16, [1, 25], method = 1)
     #     @test_skip 0 == findmrca(tree16, [1, 25], method = 2)
-    # end
+    end
     
     #! Need to define findmrca behaviour for all combinations of nodes
     # @testset "mrca_matrix" begin
