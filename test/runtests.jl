@@ -121,11 +121,48 @@ function findnode(tree; label, which = :first)
 end
 
 
+@testset "Reroot" begin
+    tree = parsenewick("((A:4.0,B:4.0)F:2.0,(C:4.0,(D:8.0,E:8.0)G:4.0)H:2.0)I:1.0;")
+    #=
+    RNode{Dict}: #1 — "I"
+    RNode{Dict}: #2 — "F"
+    RNode{Dict}: #3 — "A"
+    RNode{Dict}: #4 — "B"
+    RNode{Dict}: #5 — "H"
+    RNode{Dict}: #6 — "C"
+    RNode{Dict}: #7 — "G"
+    RNode{Dict}: #8 — "D"
+    RNode{Dict}: #9 — "E"
+    =#
+    c = tree.nodes[6]
+    d = tree.nodes[8]
+    e = tree.nodes[9]
+    f = tree.nodes[2]
+    g = tree.nodes[7]
+    h = tree.nodes[5]
+    i = tree.nodes[1]
+
+    reroot!(tree, g)
+
+    @test Set(collect(children(g))) == Set([d, e, h])
+    @test Set(collect(children(h))) == Set([i, c])
+    @test Set(collect(children(i))) == Set([f])
+    @test isnothing(parent(g))
+    @test parent(h) ≡ g
+    @test parent(i) ≡ h
+
+    @test brlength(g) == 1.0
+    @test brlength(h) == 4.0
+    @test brlength(i) == 2.0
+    @test brlength(f) == 2.0
+end
+
+
 @testset "Ancestors" begin
     #=
     Make sure that node IDs are in preorder
     =#
-    tree16 = symmetric_tree(Nothing, 16)
+    tree16 = symmetric_tree(Nothing, Nothing, 16)
 
     @testset "path_to_root" begin
         c = getnode(tree16, 12)

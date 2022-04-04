@@ -2,21 +2,28 @@
     reroot!(tree, c)
 
 Reroot a `tree` on node `c`.
+
+If the current root has a branch, that branch will be attached to `c` after rerooting.
 """
 function reroot!(tree, c)
-    #TODO: Handle branches
     c ≡ getroot(tree) && return nothing
+
+    br_root = getroot(tree).branch
     
     prev = nothing
     this = c
-    brA = this.branch
     next = parent(this)
-    brB = next.branch
-
+    brA = this.branch
+    
     while true
         cut!(this)
-        isnothing(prev) || link!(prev => this)
-        
+        if ! isnothing(prev)
+            link!(prev => this)
+        end
+        brB = this.branch
+        this.branch = brA
+        brA = brB
+
         prev = this
         p = parent(next)
         isnothing(p) && break
@@ -25,8 +32,10 @@ function reroot!(tree, c)
     end
     @assert next ≡ getroot(tree)
     link!(this => next)
+    next.branch = brA
     
     tree.root = c
+    tree.root.branch = br_root
 
     return nothing
 end
