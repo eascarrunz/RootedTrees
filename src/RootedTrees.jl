@@ -64,6 +64,9 @@ export parsenewick
 include("write_newick.jl")
 export newick, print_newick
 
+include("reroot.jl")
+export reroot!
+
 include("preplot.jl")
 
 include("plot_recipe.jl")

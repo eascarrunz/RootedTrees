@@ -4,11 +4,14 @@
 Reroot a `tree` on node `c`.
 """
 function reroot!(tree, c)
+    #TODO: Handle branches
     c ≡ getroot(tree) && return nothing
     
     prev = nothing
     this = c
+    brA = this.branch
     next = parent(this)
+    brB = next.branch
 
     while true
         cut!(this)
