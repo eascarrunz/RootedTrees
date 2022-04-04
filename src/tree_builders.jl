@@ -54,4 +54,4 @@ function symmetric_tree(::Type{ND}, ::Type{BD}, n; k = 2) where {ND,BD}
     return symmetric_tree(ND, BD; depth = Int(d), k = k)
 end
 
-symmetric_tree(n, k=2) = symmetric_tree(Dict, Dict, n, k = k)
+symmetric_tree(n, k=2) = symmetric_tree(Dict, Dict; n, k = k)
