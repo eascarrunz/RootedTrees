@@ -40,6 +40,9 @@ using RecipesBase
         dx = 0.025 * (dx[2] - dx[1])
 
         @series begin
+            label := nothing
+            hover := nothing
+            markeralpha := 0
             markersize := 0
             series_annotations := [(lab, 10, :left) for lab in treelabels] 
             textcolor --> :black
